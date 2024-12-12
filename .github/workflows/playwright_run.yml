@@ -24,9 +24,9 @@ jobs:
         distribution: zulu
         java-version: 17
 
-      # Step 7: Install Allure Commandline
-    - name: Install Allure CLI
-      run: npm install -g allure-commandline --save-dev
+    #   # Step 7: Install Allure Commandline
+    # - name: Install Allure CLI
+    #   run: npm install -g allure-commandline --save-dev
       
     - name: install browsers
       run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
