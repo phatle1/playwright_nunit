@@ -2,9 +2,9 @@ name: Playwright run test
  
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "Master" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "Master" ]
     
 jobs:
   test:
