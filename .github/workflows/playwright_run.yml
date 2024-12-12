@@ -52,9 +52,7 @@ jobs:
 
  # Step 7: Generate Allure Results
     - name: Generate Allure Results
-      run: |
-        mkdir allure-results
-        allure generate ./TestResults -o allure-results --clean
+      run: allure generate ./TestResults -o allure-results --clean
 
     # Step 8: Upload Allure History
     - name: Upload Allure History
