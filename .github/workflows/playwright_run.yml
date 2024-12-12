@@ -1,51 +1,22 @@
-name: Playwright run test
-
+name: Playwright Tests
 on:
   push:
-    branches: ["Master"]
-
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 jobs:
   test:
-    runs-on: window-latest
-
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout the code
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      # Step 2: Set up .NET environment
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-
-      # Step 4: Build the Project
-      - name: Build the Project
-        run: dotnet build
-
-      # Step 5: Install Playwright Browsers
-      - name: Install playwright browsers
-        run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
-
-      # Step 6: Run Tests and Save Results for Allure
-      - name: Run Tests
-        run: |
-          dotnet test --filter LoginTests --settings e2e.runsettings --logger "trx;LogFileName=test-results.trx" --results-directory "TestResults"
-        continue-on-error: true
-
-      - name: Generate allure report with history
-        run: |
-          mkdir allure-results
-          # Copy test results to Allure results directory
-          copy TestResults\*.trx allure-results\
-
-      - name: Generate Allure Report and History
-        run: |
-          allure generate allure-results --clean -o allure-report
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
-          publish_branch: gh-pages
+    - uses: actions/checkout@v4
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Build & Install
+      run: dotnet build
+    - name: Ensure browsers are installed
+      run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+    - name: Run your tests
+      run: dotnet test
