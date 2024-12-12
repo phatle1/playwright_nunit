@@ -35,14 +35,21 @@ jobs:
       
     - name: Run tests
       run: dotnet test --configuration Debug --settings e2e.runsettings  --logger "trx;LogFileName=test-results.trx" --results-directory "allure-results"
-
+   
+    
+    - name: Install scoop (Windows)
+      uses: MinoruSekine/setup-scoop@v4.0.1
+      if: steps.restore_cache.outputs.cache-hit != 'true'
+      with:
+        install_scoop: 'true'
+        buckets: extras
+        apps: ${{ env.packages_to_install }}
+        scoop_update: 'true'
+        update_path: 'true'
 
         # Step 6: Install Allure
     - name: Download Allure CLI
-      run: |
-          Invoke-WebRequest -Uri https://github.com/allure-framework/allure2/releases/download/2.22.0/allure-2.22.0.zip -OutFile allure.zip
-          Expand-Archive -Path allure.zip -DestinationPath allure
-          echo "::add-path::${{ github.workspace }}\\allure\\bin"
+      run: scoop install allure
 
     - name: Verify Allure Installation
       run: allure --version
