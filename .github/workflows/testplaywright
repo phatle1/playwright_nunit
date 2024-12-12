@@ -1,0 +1,30 @@
+name: Playwright run test
+ 
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+    
+jobs:
+  test:
+    runs-on: window-latest
+ 
+    steps:
+    # Step 1: Checkout the code
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      with:
+       fetch-depth: 0
+ 
+    # Step 2: Set up .NET environment
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+ 
+    # Step 4: Build the Project
+    - name: Build the Project
+      run: dotnet build
+ 
+       
