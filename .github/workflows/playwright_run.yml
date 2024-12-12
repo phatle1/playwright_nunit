@@ -28,7 +28,7 @@ jobs:
       run: dotnet build
  
     # Step 5: Install Playwright Browsers
-    - name: Install Playwright browsers
+    - name: Install playwright browsers
       run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
  
     # Step 6: Run Tests and Save Results for Allure
