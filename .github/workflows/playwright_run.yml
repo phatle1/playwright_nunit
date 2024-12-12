@@ -42,7 +42,7 @@ jobs:
         scoop_update: 'true'
         update_path: 'true'
 
-        # Step 6: Install Allure
+    # Step 6: Install Allure
     - name: Download Allure CLI
       run: scoop install allure
 
@@ -50,7 +50,7 @@ jobs:
       run: allure --version
      
 
- # Step 7: Generate Allure Results
+   # Step 7: Generate Allure Results
     - name: Generate Allure Results
       run: allure generate ./TestResults -o allure-results --clean
 
@@ -61,12 +61,15 @@ jobs:
         name: allure-history
         path: allure-results/history
 
-    # Step 9: Upload Allure Report
-    - name: Publish Allure Report
-      uses: actions/upload-artifact@v3
+    - name: Publish test report
+      uses: peaceiris/actions-gh-pages@v3
+      if: always()
       with:
-        name: allure-report
-        path: allure-results
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: allure-history
+
+    
 
 
 
