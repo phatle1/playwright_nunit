@@ -28,11 +28,6 @@ jobs:
       run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
 
     
-
-    - name: Create Results Directory
-      run: |
-        mkdir allure-results
-      
     - name: Run tests
       run: dotnet test --configuration Debug --settings e2e.runsettings  --logger "trx;LogFileName=test-results.trx" --results-directory "allure-results"
    
