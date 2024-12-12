@@ -46,13 +46,10 @@ jobs:
     - name: Download Allure CLI
       run: scoop install allure
 
-    - name: Verify Allure Installation
-      run: allure --version
-     
-
    # Step 7: Generate Allure Results
     - name: Generate Allure Results
-      run: allure generate ./TestResults -o allure-results --clean
+      run: |
+        allure generate ./TestResults -o allure-results --clean
 
     # Step 8: Upload Allure History
     - name: Upload Allure History
