@@ -39,9 +39,8 @@ jobs:
 
         # Step 6: Install Allure
     - name: Install Allure
-      run: choco install allure -y
-      env:
-        CHOCO_FORCE: true
+      run: scoop install allure
+     
 
  # Step 7: Generate Allure Results
     - name: Generate Allure Results
