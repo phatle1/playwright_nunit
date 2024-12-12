@@ -22,17 +22,6 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-        
-    # Step 2.1: Set up Java for Allure Report   
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'microsoft'
-        java-version: '17'
- 
-    # Step 3: Restore .NET dependencies
-    - name: Restore dependencies
-      run: dotnet restore
  
     # Step 4: Build the Project
     - name: Build the Project
