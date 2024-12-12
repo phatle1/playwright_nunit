@@ -23,6 +23,14 @@ jobs:
       with:
         distribution: zulu
         java-version: 17
+
+    - name: Install Scoop
+      run: iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+
+    - name: Install Allure Commandline
+      run: |
+        scoop install allure
+        echo "::add-path::$(scoop prefix allure)\bin"
         
     - name: Build & Install
       run: dotnet build
