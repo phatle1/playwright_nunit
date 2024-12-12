@@ -46,11 +46,21 @@ jobs:
     - name: Download Allure CLI
       run: scoop install allure
 
+    
+
    # Step 7: Generate Allure Results
     - name: Generate Allure Results
       run: |
         allure generate ./TestResults -o allure-results --clean
-
+        
+    - name: Load test report history
+      uses: actions/checkout@v3
+      if: always()
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages
+        
     # Step 8: Upload Allure History
     - name: Upload Allure History
       uses: actions/upload-artifact@v3
