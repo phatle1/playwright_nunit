@@ -1,4 +1,4 @@
-name: .NET Playwright CICD
+name: Playwright run test
  
 on:
   push:
