@@ -17,22 +17,24 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-        
-    # - name: Set up JDK
-    #   uses: actions/setup-java@v3
-    #   with:
-    #     distribution: zulu
-    #     java-version: 17
 
-    #   # Step 7: Install Allure Commandline
-    # - name: Install Allure CLI
-    #   run: npm install -g allure-commandline --save-dev
+    - name: Build & Install
+      run: dotnet build
+        
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: zulu
+        java-version: 17
+
+      # Step 7: Install Allure Commandline
+    - name: Install Allure CLI
+      run: npm install -g allure-commandline --save-dev
       
     - name: install browsers
       run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
 
-    - name: Build & Install
-      run: dotnet build
+    
 
     - name: Create Results Directory
       run: |
