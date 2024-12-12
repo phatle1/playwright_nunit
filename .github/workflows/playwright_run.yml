@@ -24,19 +24,16 @@ jobs:
         distribution: zulu
         java-version: 17
 
-    - name: Install Scoop
-      run: iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
-
-    - name: Install Allure Commandline
+      # Step 7: Install Allure Commandline
+    - name: Install Allure CLI
       run: |
-        scoop install allure
-        echo "::add-path::$(scoop prefix allure)\bin"
-        
+        npm install -g allure-commandline --save-dev
+      
+    - name: install browsers
+      run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+
     - name: Build & Install
       run: dotnet build
-      
-    - name: insatall browsers
-      run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
 
     - name: Create Results Directory
       run: |
