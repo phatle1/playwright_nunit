@@ -38,7 +38,7 @@ jobs:
       continue-on-error: true
  
     
-    - name: Generate Allure Report with history
+    - name: Generate allure report with history
       run: |
         mkdir allure-results
         # Copy test results to Allure results directory
