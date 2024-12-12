@@ -38,8 +38,14 @@ jobs:
 
 
         # Step 6: Install Allure
-    - name: Install Allure
-      run: scoop install allure
+    - name: Download Allure CLI
+      run: |
+          Invoke-WebRequest -Uri https://github.com/allure-framework/allure2/releases/download/2.22.0/allure-2.22.0.zip -OutFile allure.zip
+          Expand-Archive -Path allure.zip -DestinationPath allure
+          echo "::add-path::${{ github.workspace }}\\allure\\bin"
+
+    - name: Verify Allure Installation
+      run: allure --version
      
 
  # Step 7: Generate Allure Results
