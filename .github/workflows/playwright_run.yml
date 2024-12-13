@@ -34,13 +34,7 @@ jobs:
     - name: install browsers
       run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
 
-     # Step 4: Retrieve previous history (if exists)
-    - name: Retrieve Allure History
-      run: |
-        git clone --depth 1 --branch gh-pages https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
-        if (Test-Path gh-pages\allure-report\history) {
-          Copy-Item -Path gh-pages\allure-report\history -Destination allure-results\history -Recurse -Force
-        }
+   
 
     
     - name: Run tests
@@ -63,6 +57,23 @@ jobs:
     - name: Download Allure CLI
       run: scoop install allure
 
+      
+    - name: Get Allure history.
+      uses: actions/checkout@v2
+      if: always()
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages
+        
+    - name: Deploy report to Github Pages.
+      if: always()
+      uses: peaceiris/actions-gh-pages@v2
+      env:
+        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: allure-history
+        keep_files: true
     
 
    # Step 7: Generate Allure Results
@@ -72,13 +83,6 @@ jobs:
           Copy-Item -Path "gh-pages\allure-report\history" -Destination "allure-results\history" -Recurse -Force
         }
         allure generate ./allure-results -o ./allure-report
-
-
-    - name: Configure Git for Authentication
-      run: |
-        git config --global user.name "phatle1"
-        git config --global user.email "lnhatphat@gmail.com"
-        git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
     - name: Deploy Allure Report
       env:
@@ -90,34 +94,4 @@ jobs:
         git add --all
         git commit -m "Update Allure Report with history - $(date)" || echo "No changes to commit"
         git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
-    # - name: Deploy to GitHub Pages
-    #   uses: peaceiris/actions-gh-pages@v3
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     publish_dir: allure-report
-    #     publish_branch: gh-pages
-    #     keep_files: true
         
-    # - name: Load test report history
-    #   uses: actions/checkout@v3
-    #   if: always()
-    #   continue-on-error: true
-    #   with:
-    #     ref: gh-pages
-    #     path: gh-pages
-        
-    # # Step 8: Upload Allure History
-    # - name: Upload Allure History
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: allure-history
-    #     path: allure-results/history
-
-    # - name: Publish test report
-    #   uses: peaceiris/actions-gh-pages@v3
-    #   if: always()
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     publish_branch: gh-pages
-    #     publish_dir: allure-history
-    #     keep_files: true
