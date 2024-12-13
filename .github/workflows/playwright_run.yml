@@ -34,6 +34,14 @@ jobs:
     - name: install browsers
       run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
 
+     # Step 4: Retrieve previous history (if exists)
+    - name: Retrieve Allure History
+      run: |
+        git clone --depth 1 --branch gh-pages https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
+        if exist gh-pages\allure-report\history (
+          xcopy gh-pages\allure-report\history allure-results\history /E /H /C /I
+        )
+
     
     - name: Run tests
       run: |
