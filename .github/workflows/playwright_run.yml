@@ -53,7 +53,11 @@ jobs:
    # Step 7: Generate Allure Results
     - name: Generate Allure Results
       run: |
+        if (Test-Path -Path "gh-pages\allure-report\history") {
+          Copy-Item -Path "gh-pages\allure-report\history" -Destination "allure-results\history" -Recurse -Force
+        }
         allure generate ./allure-results -o ./allure-report
+      shell: pwsh
         
     - name: Load test report history
       uses: actions/checkout@v3
@@ -77,3 +81,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
         publish_dir: allure-history
+        keep_files: true
