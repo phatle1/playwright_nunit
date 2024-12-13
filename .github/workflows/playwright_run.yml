@@ -57,28 +57,27 @@ jobs:
           Copy-Item -Path "gh-pages\allure-report\history" -Destination "allure-results\history" -Recurse -Force
         }
         allure generate ./allure-results -o ./allure-report
-      shell: pwsh
         
-    - name: Load test report history
-      uses: actions/checkout@v3
-      if: always()
-      continue-on-error: true
-      with:
-        ref: gh-pages
-        path: gh-pages
+    # - name: Load test report history
+    #   uses: actions/checkout@v3
+    #   if: always()
+    #   continue-on-error: true
+    #   with:
+    #     ref: gh-pages
+    #     path: gh-pages
         
-    # Step 8: Upload Allure History
-    - name: Upload Allure History
-      uses: actions/upload-artifact@v3
-      with:
-        name: allure-history
-        path: allure-results/history
+    # # Step 8: Upload Allure History
+    # - name: Upload Allure History
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: allure-history
+    #     path: allure-results/history
 
-    - name: Publish test report
-      uses: peaceiris/actions-gh-pages@v3
-      if: always()
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages
-        publish_dir: allure-history
-        keep_files: true
+    # - name: Publish test report
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   if: always()
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_branch: gh-pages
+    #     publish_dir: allure-history
+    #     keep_files: true
