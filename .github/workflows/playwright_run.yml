@@ -37,11 +37,10 @@ jobs:
      # Step 4: Retrieve previous history (if exists)
     - name: Retrieve Allure History
       run: |
-          git clone --depth 1 --branch gh-pages https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
-          if exist gh-pages\allure-report\history 
-          (
-            xcopy gh-pages\allure-report\history allure-results\history /E /H /C /I
-          )
+        git clone --depth 1 --branch gh-pages https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
+        if (Test-Path gh-pages\allure-report\history) {
+          Copy-Item -Path gh-pages\allure-report\history -Destination allure-results\history -Recurse -Force
+        }
 
     
     - name: Run tests
