@@ -47,8 +47,12 @@ jobs:
     # Step 6: Install Allure command-line tool for generating the report
     - name: Install Allure CLI
       run: |
-        sudo apt update
-        sudo apt install -y allure
+        sudo apt-get update
+        sudo apt-get install -y curl unzip
+        curl -sLo allure.tgz https://github.com/allure-framework/allure2/releases/download/2.23.0/allure-2.23.0.tgz
+        tar -xzf allure.tgz
+        sudo mv allure-2.23.0 /opt/allure
+        sudo ln -s /opt/allure/bin/allure /usr/bin/allure
 
     # Step 7: Generate Allure report
     - name: Generate Allure Report
