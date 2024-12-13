@@ -73,13 +73,25 @@ jobs:
         }
         allure generate ./allure-results -o ./allure-report
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
+
+    - name: Deploy Allure Report
+      env:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: allure-report
-        publish_branch: gh-pages
-        keep_files: true
+      run: |
+        mkdir -p gh-pages/allure-report/history
+        cp -r allure-report/history gh-pages/allure-report/
+        cp -r allure-report/* gh-pages/allure-report/
+        cd gh-pages
+        git add --all
+        git commit -m "Update Allure Report with history - $(date)" || echo "No changes to commit"
+        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
+    # - name: Deploy to GitHub Pages
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_dir: allure-report
+    #     publish_branch: gh-pages
+    #     keep_files: true
         
     # - name: Load test report history
     #   uses: actions/checkout@v3
