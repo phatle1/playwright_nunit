@@ -57,6 +57,13 @@ jobs:
           Copy-Item -Path "gh-pages\allure-report\history" -Destination "allure-results\history" -Recurse -Force
         }
         allure generate ./allure-results -o ./allure-report
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: allure-report
+        branch: gh-pages
+        clean: true
         
     # - name: Load test report history
     #   uses: actions/checkout@v3
