@@ -32,14 +32,13 @@ jobs:
     - name: Build NUnit Project
       run: |
         dotnet restore
-        dotnet build --configuration Release
+        dotnet build --configuration Debug
 
     # Step 5: Run NUnit tests and generate Allure results
     - name: Run NUnit Tests
       run: |
-        dotnet tool install --global AllureTestAdapter.Console
         # Run tests with NUnit and output results in Allure format
-        dotnet test --settings e2e.runsettings  --logger "Allure" -- TestResultsDirectory=allure-results
+        dotnet test --settings e2e.runsettings  --test-adapter-path:. -- TestResultsDirectory=allure-results
 
     # Step 6: Install Allure command-line tool for generating the report
     - name: Install Allure CLI
@@ -58,9 +57,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use GitHub token for authentication
       run: |
-        # Configure Git user for commits
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
 
         # Clone the gh-pages branch
         git clone --depth 1 --branch gh-pages https://github.com/${{ github.repository }} gh-pages
