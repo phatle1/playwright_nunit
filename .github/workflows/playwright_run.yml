@@ -78,7 +78,6 @@ jobs:
       env:
         github_token: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        mkdir -p gh-pages/allure-report/history
         cp -r allure-report/history gh-pages/allure-report/
         cp -r allure-report/* gh-pages/allure-report/
         cd gh-pages
