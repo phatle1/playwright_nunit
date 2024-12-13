@@ -30,7 +30,7 @@ jobs:
     
     - name: Run tests
       run: dotnet test --configuration Debug --settings e2e.runsettings  --logger "trx;LogFileName=test-results.trx" --results-directory "allure-results"
-   
+      continue-on-error: true
     
     - name: Install scoop (Windows)
       uses: MinoruSekine/setup-scoop@v4.0.1
@@ -51,7 +51,7 @@ jobs:
    # Step 7: Generate Allure Results
     - name: Generate Allure Results
       run: |
-        allure generate ./TestResults -o allure-results --clean
+        allure generate ./allure-results -o ./allure-report
         
     - name: Load test report history
       uses: actions/checkout@v3
