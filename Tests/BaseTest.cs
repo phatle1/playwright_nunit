@@ -45,7 +45,7 @@ namespace PortalTalk.AutomationTest.Tests
             Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
             Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
-                Headless = false
+                Headless = true
 
             });
             Context = await Browser.NewContextAsync();
