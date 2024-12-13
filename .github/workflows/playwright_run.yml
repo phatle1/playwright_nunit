@@ -29,7 +29,9 @@ jobs:
 
     
     - name: Run tests
-      run: dotnet test --configuration Debug --settings e2e.runsettings  --logger "trx;LogFileName=test-results.trx" --results-directory "allure-results"
+      run: |
+        mkdir allure-results
+        dotnet test --settings e2e.runsettings  --logger "trx;LogFileName=allure-report.trx" --results-directory "allure-results"
       continue-on-error: true
     
     - name: Install scoop (Windows)
