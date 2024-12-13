@@ -11,9 +11,12 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0 
-    - name: Install rsync
+    
+    - name: Install rsync and refresh environment
+      shell: powershell
       run: |
-        choco install rsync
+        choco install rsync -y
+        Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
         refreshenv
         
     - name: Setup dotnet
