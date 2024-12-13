@@ -33,6 +33,10 @@ jobs:
       run: |
         dotnet restore
         dotnet build --configuration Debug
+    
+     # Step 4.1: Install browser
+    - name: install browsers
+      run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
 
     # Step 5: Run NUnit tests and generate Allure results
     - name: Run NUnit Tests
