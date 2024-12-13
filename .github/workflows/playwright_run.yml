@@ -40,20 +40,6 @@ jobs:
         mkdir allure-results
         dotnet test --settings e2e.runsettings  --logger "trx;LogFileName=allure-report.trx" --results-directory "allure-results"
       continue-on-error: true
-    
-    # - name: Install scoop (Windows)
-    #   uses: MinoruSekine/setup-scoop@v4.0.1
-    #   if: steps.restore_cache.outputs.cache-hit != 'true'
-    #   with:
-    #     install_scoop: 'true'
-    #     buckets: extras
-    #     apps: ${{ env.packages_to_install }}
-    #     scoop_update: 'true'
-    #     update_path: 'true'
-
-    # # Step 6: Install Allure
-    # - name: Download Allure CLI
-    #   run: scoop install allure
 
       
     - name: Load test report history
