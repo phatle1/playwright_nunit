@@ -74,12 +74,16 @@ jobs:
         allure generate ./allure-results -o ./allure-report
 
 
+    - name: Configure Git for Authentication
+      run: |
+        git config --global user.name "phatle1"
+        git config --global user.email "lnhatphat@gmail.com"
+        git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
     - name: Deploy Allure Report
       env:
         github_token: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        git config --global user.name "phatle1"
-        git config --global user.email "lnhatphat@gmail.com"
         cp -r allure-report/history gh-pages/allure-report/
         cp -r allure-report/* gh-pages/allure-report/
         cd gh-pages
