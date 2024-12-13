@@ -37,6 +37,7 @@ jobs:
     # Step 5: Run NUnit tests and generate Allure results
     - name: Run NUnit Tests
       run: |
+        dotnet tool install --global AllureTestAdapter.Console
         # Run tests with NUnit and output results in Allure format
         dotnet test --settings e2e.runsettings  --logger "Allure" -- TestResultsDirectory=allure-results
 
