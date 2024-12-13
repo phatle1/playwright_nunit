@@ -66,32 +66,32 @@ jobs:
         ref: gh-pages
         path: gh-pages
         
-    - name: Deploy report to Github Pages.
+    - name: Deploy Allure Report to GitHub Pages
       if: always()
-      uses: peaceiris/actions-gh-pages@v2
+      uses: actions/github-pages@v3
+      with:
+        branch: gh-pages
+        folder: allure-history  # Folder containing your Allure report
       env:
-        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: allure-history
-        keep_files: true
+        PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
     
 
    # Step 7: Generate Allure Results
-    - name: Generate Allure Results
-      run: |
-        if (Test-Path -Path "gh-pages\allure-report\history") {
-          Copy-Item -Path "gh-pages\allure-report\history" -Destination "allure-results\history" -Recurse -Force
-        }
-        allure generate ./allure-results -o ./allure-report
+    # - name: Generate Allure Results
+    #   run: |
+    #     if (Test-Path -Path "gh-pages\allure-report\history") {
+    #       Copy-Item -Path "gh-pages\allure-report\history" -Destination "allure-results\history" -Recurse -Force
+    #     }
+    #     allure generate ./allure-results -o ./allure-report
 
-    - name: Deploy Allure Report
-      env:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        cp -r allure-report/history gh-pages/allure-report/
-        cp -r allure-report/* gh-pages/allure-report/
-        cd gh-pages
-        git add --all
-        git commit -m "Update Allure Report with history - $(date)" || echo "No changes to commit"
-        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
+    # - name: Deploy Allure Report
+    #   env:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #   run: |
+    #     cp -r allure-report/history gh-pages/allure-report/
+    #     cp -r allure-report/* gh-pages/allure-report/
+    #     cd gh-pages
+    #     git add --all
+    #     git commit -m "Update Allure Report with history - $(date)" || echo "No changes to commit"
+    #     git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
         
