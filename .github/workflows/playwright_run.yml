@@ -29,7 +29,7 @@ jobs:
     
     - name: Run tests
       run: |
-        mkdir allure-results
+        mkdir -p allure-results
         dotnet test --settings e2e.runsettings  --logger "trx;LogFileName=allure-report.trx" --results-directory "allure-results"
       continue-on-error: true
       
