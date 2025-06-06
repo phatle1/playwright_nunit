@@ -27,7 +27,7 @@ namespace PortalTalk.AutomationTest.Tests.SmokeTest
             // string CatType = "Microsoft Team";
             // string Prefix = $"auto_prefix{RandomNumber}".ToUpper();
 
-             await _loginPage.LoginWithValidCredential(EnvUtils.BASE_URL, EnvUtils.USERNAME, EnvUtils.PWD);
+             await _loginPage.LoginWithValidCredential("https://test.portaltalk.net/", "belinda@alteraiam.com", "Welkom0202");
             var screenshotPath = Path.Combine("allure-results", "screenshot.png");
             await Page.ScreenshotAsync(new Microsoft.Playwright.PageScreenshotOptions { Path = screenshotPath });
             Allure.Net.Commons.AllureApi.AddAttachment("Screenshot on Failure", "image/png", screenshotPath);
