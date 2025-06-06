@@ -6,7 +6,7 @@ on:
     branches: [ "Master" ]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
       with:
@@ -26,10 +26,9 @@ jobs:
     - name: install browsers
       run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
 
-    
     - name: Run tests
       run: |
-        mkdir -p allure-results
+        mkdir allure-results
         dotnet test --settings e2e.runsettings  --logger "trx;LogFileName=allure-report.trx" --results-directory "allure-results"
       continue-on-error: true
 
