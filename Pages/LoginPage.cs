@@ -48,8 +48,8 @@ namespace PortalTalk.AutomationTest.Pages
         {
             await NavigateToURL(URL);
             await FillUserName(username);
-            //await ClickNextBtn();
-           // await FillPassword(password);
+            await ClickNextBtn();
+            await FillPassword(password);
             //await ClickNextBtn();
             //await ClickYesBtn();
         }
