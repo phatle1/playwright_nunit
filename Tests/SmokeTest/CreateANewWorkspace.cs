@@ -17,7 +17,7 @@ namespace PortalTalk.AutomationTest.Tests.SmokeTest
         [AllureStory("Test Add New Workspace")]
         public async Task TestAddNewWorkspace()
         {
-            Assert.Pass("Test Add New Workspace");
+            
             // var connection = await dbConnect.CreateConnectionAsync();
             // var CatObject = await MAC_DAO.GetCatIdAndWorkspaceIdFromDatabase(connection, "AUTO_CATEGORY70567");
 
@@ -27,7 +27,8 @@ namespace PortalTalk.AutomationTest.Tests.SmokeTest
             // string CatType = "Microsoft Team";
             // string Prefix = $"auto_prefix{RandomNumber}".ToUpper();
 
-            // await _loginPage.LoginWithValidCredential(EnvUtils.BASE_URL, EnvUtils.USERNAME, EnvUtils.PWD);
+             await _loginPage.LoginWithValidCredential(EnvUtils.BASE_URL, EnvUtils.USERNAME, EnvUtils.PWD);
+             Assert.Fail("Intentional failure for test validation");
             // await _landingPage.AssertUserIsLogedinSuccessfully(EnvUtils.USERNAME, "");
             // await _landingPage.ActionOpenAdminPage();
             // await _configuration.ActionOpenCategories();
