@@ -28,7 +28,9 @@ namespace PortalTalk.AutomationTest.Tests.SmokeTest
             // string Prefix = $"auto_prefix{RandomNumber}".ToUpper();
 
              await _loginPage.LoginWithValidCredential(EnvUtils.BASE_URL, EnvUtils.USERNAME, EnvUtils.PWD);
-             Assert.Fail("Intentional failure for test validation");
+            var screenshotPath = Path.Combine("allure-results", "screenshot.png");
+            await Page.ScreenshotAsync(new Microsoft.Playwright.PageScreenshotOptions { Path = screenshotPath });
+            Allure.Net.Commons.AllureApi.AddAttachment("Screenshot on Failure", "image/png", screenshotPath);
             // await _landingPage.AssertUserIsLogedinSuccessfully(EnvUtils.USERNAME, "");
             // await _landingPage.ActionOpenAdminPage();
             // await _configuration.ActionOpenCategories();
