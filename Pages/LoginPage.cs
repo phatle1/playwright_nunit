@@ -47,7 +47,7 @@ namespace PortalTalk.AutomationTest.Pages
         public async Task LoginWithValidCredential(string URL, string username, string password)
         {
             await NavigateToURL(URL);
-            //await FillUserName(username);
+            await FillUserName(username);
             //await ClickNextBtn();
            // await FillPassword(password);
             //await ClickNextBtn();
