@@ -47,17 +47,17 @@ namespace PortalTalk.AutomationTest.Pages
         public async Task LoginWithValidCredential(string URL, string username, string password)
         {
             await NavigateToURL(URL);
-            await FillUserName(username);
-            await ClickNextBtn();
-            await FillPassword(password);
-            await ClickNextBtn();
-            await ClickYesBtn();
+            //await FillUserName(username);
+            //await ClickNextBtn();
+           // await FillPassword(password);
+            //await ClickNextBtn();
+            //await ClickYesBtn();
         }
 
         [AllureStep("Step: Inspect ACCESS_TOKEN and add to .ENV file")]
         public void InspectTokenAndAddToEnv(string env, string token)
         {
-            UpdateAccessToken(env, token);
+           // UpdateAccessToken(env, token);
         }
     }
 }
